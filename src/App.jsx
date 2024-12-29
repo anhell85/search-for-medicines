@@ -1,33 +1,48 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './App.scss'
 
 import { Drugs } from './components/drugs';
-import { UseDrugs } from './hooks/useDrugs';
+import { UseDrugs } from './hooks/useDrugs.js';
+import { UseSearch } from './hooks/useSearch.js'
+// import { UseSearch } from './hooks/useSearch';
+// console.log(UseSearch)
 
-const DRUGS_ENDPOINT = 'https://api.fda.gov/drug/label.json?search=openfda.brand_name:%22ava%22&limit=2';
+const DRUGS_ENDPOINT = 'https://api.fda.gov/drug/label.json?search=openfda.brand_name:"ava"&limit=2';
+
 
 function App() {
-  const {listOfDrugs} = UseDrugs();
+  const { listOfDrugs } = UseDrugs();
+  const { search, updateSearch, error } = UseSearch()
   
-  //  const [drugs, setDrugs] = useState()
-   useEffect(()=> {
-    // fetch(DRUGS_ENDPOINT)
-    //   .then(res => res.json())
-    //   // .then(data =>  setDrugs(data.results))
-    //   .then(data =>
-    //     console.log(data)
+  const handleChange = (event) => {
+    const newSearch = event.target.value
+    if(newSearch.startsWith(' ')) return
+    updateSearch(newSearch)
 
-    //   )
-    // setDrugs(listDrugs.results)
-    },[])
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    updateSearch({ search })
+    console.log(search);
+  }
+  
+   
+   
   return (
     <section className='App'>
       <header>
         <h1>Buscador de medicamentos</h1>
-        <form className='form'>
-          <input type="text" placeholder='introduce el nombre del medicamento' />
+        <form className='form' onSubmit={handleSubmit}>
+          <input 
+            onChange={handleChange}
+            value={search}
+            name="search"
+            type="text" 
+            placeholder='introduce el nombre del medicamento' />
           <button type='submit'> Buscar</button>
         </form>
+        {error && <p style={{color:'red'}} >{error}</p>}
       </header>
       <main>
         <Drugs responseDrugs={listOfDrugs}></Drugs>
