@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import './App.scss'
-import responseDrugs from './mocks/listDrugs.json'
+
 import { Drugs } from './components/drugs';
+import { UseDrugs } from './hooks/useDrugs';
 
 const DRUGS_ENDPOINT = 'https://api.fda.gov/drug/label.json?search=openfda.brand_name:%22ava%22&limit=2';
 
 function App() {
+  const {listOfDrugs} = UseDrugs();
   
   //  const [drugs, setDrugs] = useState()
    useEffect(()=> {
@@ -28,7 +30,7 @@ function App() {
         </form>
       </header>
       <main>
-        <Drugs responseDrugs={responseDrugs}></Drugs>
+        <Drugs responseDrugs={listOfDrugs}></Drugs>
       </main>
     </section>
   )

@@ -5,7 +5,7 @@ function ListOfdrugs({listDrugs}) {
     <ul>
     { 
     listDrugs.map(drug => (
-      <li key={drug.id}>{drug.openfda.brand_name}</li>
+      <li key={drug.id}>{drug.name}</li>
       
     ))}
   </ul>
@@ -17,12 +17,10 @@ function NoDrugsResult() {
   )
 }
 export function Drugs({responseDrugs}) {
-  console.log(responseDrugs.results)
-  const listDrugs = responseDrugs.results
-  const hasDrugs = listDrugs && listDrugs.length>0
+  const hasDrugs = responseDrugs && responseDrugs.length>0
   return (
     hasDrugs 
-    ? <ListOfdrugs listDrugs={listDrugs}/>
+    ? <ListOfdrugs listDrugs={responseDrugs}/>
     : <NoDrugsResult/>
   )
 }
