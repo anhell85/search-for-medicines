@@ -9,7 +9,7 @@ import { UseSearch } from './hooks/useSearch.js'
 
 function App() {
   const { search, updateSearch, error } = UseSearch()
-  const { drugs, getDrugs } = UseDrugs({search});
+  const { drugs, loading, getDrugs } = UseDrugs({search});
   
   const handleChange = (event) => {
     const newSearch = event.target.value
@@ -21,9 +21,9 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault()
     updateSearch( search )
-    // if(!error) {
+    if(!error) {
       getDrugs(search);
-    // }
+    }
   }
   
    
@@ -44,7 +44,8 @@ function App() {
         {error && <p style={{color:'red'}} >{error}</p>}
       </header>
       <main>
-        <Drugs responseDrugs={drugs}></Drugs>
+        {loading ? <h3>Cargando...</h3> : <Drugs responseDrugs={drugs}></Drugs>}
+        
       </main>
     </section>
   )
