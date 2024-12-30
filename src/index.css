@@ -4,6 +4,18 @@
  * if a system-wide theme preference is set on the user's device.
  */
 
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('@fontsource/roboto/300.css')
+       url('@fontsource/roboto/400.css')
+       url('@fontsource/roboto/500.css')
+       url('@fontsource/roboto/700.css')
+       
+}
+
  :root {
   --background-body: #fff;
   --background: #efefef;
