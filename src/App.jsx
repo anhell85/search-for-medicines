@@ -7,12 +7,9 @@ import { UseSearch } from './hooks/useSearch.js'
 // import { UseSearch } from './hooks/useSearch';
 // console.log(UseSearch)
 
-const DRUGS_ENDPOINT = 'https://api.fda.gov/drug/label.json?search=openfda.brand_name:"ava"&limit=2';
-
-
 function App() {
-  const { listOfDrugs } = UseDrugs();
   const { search, updateSearch, error } = UseSearch()
+  const { drugs, getDrugs } = UseDrugs({search});
   
   const handleChange = (event) => {
     const newSearch = event.target.value
@@ -24,7 +21,9 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault()
     updateSearch( search )
-    console.log(search);
+    // if(!error) {
+      getDrugs(search);
+    // }
   }
   
    
@@ -45,7 +44,7 @@ function App() {
         {error && <p style={{color:'red'}} >{error}</p>}
       </header>
       <main>
-        <Drugs responseDrugs={listOfDrugs}></Drugs>
+        <Drugs responseDrugs={drugs}></Drugs>
       </main>
     </section>
   )
