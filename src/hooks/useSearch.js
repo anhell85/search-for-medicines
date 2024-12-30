@@ -18,7 +18,7 @@ export function UseSearch () {
       setError('No se puede realizar una busqueda con un numero')
       return
     }
-    if (search.length < 2) {
+    if (search.length < 3) {
       setError('No se puede realizar una busqueda con al menos dos caracteres')
       return
     }

@@ -2,10 +2,10 @@
 
 function ListOfdrugs({listDrugs}) {
   return (
-    <ul>
+    <ul className='drugs'>
     { 
     listDrugs.map(drug => (
-      <li key={drug.id}>{drug.name}</li>
+      <li className="drug" key={drug.id}>{drug.name}</li>
       
     ))}
   </ul>
@@ -20,7 +20,7 @@ export function Drugs({responseDrugs}) {
   const hasDrugs = responseDrugs && responseDrugs.length>0
   return (
     hasDrugs 
-    ? <ListOfdrugs listDrugs={responseDrugs}/>
+    ? <ListOfdrugs  listDrugs={responseDrugs}/>
     : <NoDrugsResult/>
   )
 }

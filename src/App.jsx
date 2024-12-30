@@ -23,7 +23,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    updateSearch({ search })
+    updateSearch( search )
     console.log(search);
   }
   
