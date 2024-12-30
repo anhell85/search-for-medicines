@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
+import {Button, TextField } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import './App.scss'
 
 import { Drugs } from './components/drugs';
@@ -24,22 +25,30 @@ function App() {
     if(!error) {
       getDrugs(search);
     }
-  }
-  
-   
+  }  
    
   return (
     <section className='App'>
       <header>
         <h1>Buscador de medicamentos</h1>
         <form className='form' onSubmit={handleSubmit}>
-          <input 
+        <TextField
+          onChange={handleChange}
+          value={search}
+          id="outlined-basic"
+          name="search"
+          type="search" 
+          placeholder='introduce el nombre del medicamento'
+          required
+          size="small"
+        />
+          {/* <input 
             onChange={handleChange}
             value={search}
             name="search"
             type="text" 
-            placeholder='introduce el nombre del medicamento' />
-          <button type='submit'> Buscar</button>
+            placeholder='introduce el nombre del medicamento' /> */}
+          <Button variant="contained" type="submit">Buscar</Button>
         </form>
         {error && <p style={{color:'red'}} >{error}</p>}
       </header>
