@@ -4,7 +4,7 @@ import {useState, useRef} from 'react'
 import { searchDrugs } from '../services/drugs.service'
 
 export function useDrugs({search}) {
-  const [drugs, setDrugs] = useState({});
+  const [drugs, setDrugs] = useState([]);
   const [loading, setLoading] = useState(false);
   const previusSearch = useRef(search)
 
@@ -24,5 +24,5 @@ export function useDrugs({search}) {
     
   }
     
-  return {drugs, getDrugs, loading}
+  return {drugs, getDrugs, loading, setDrugs}
 }

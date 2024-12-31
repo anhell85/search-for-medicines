@@ -8,7 +8,7 @@ import { useSearch } from '../hooks/useSearch.js'
 
 export function Home() {
   const { search, updateSearch, error } = useSearch()
-  const { drugs, loading, getDrugs } = useDrugs({search});
+  const { drugs, loading, getDrugs, setDrugs } = useDrugs({search});
   
   const handleChange = (event) => {
     const newSearch = event.target.value
@@ -22,11 +22,15 @@ export function Home() {
     if(!error) {
       getDrugs(search);
     }
-  }  
+  }
+  const clearPage = () => {
+    setDrugs([])
+    updateSearch('')
+  }
    
   return (
     <section>
-      <header>
+       <header className='header'>
         <h1>Buscador de medicamentos</h1>
         <form className='form' onSubmit={handleSubmit}>
           <TextField
@@ -40,11 +44,14 @@ export function Home() {
             size="small"
           />
           <Button variant="contained" type="submit">Buscar</Button>
+          <Button variant="contained" type="text" onClick={clearPage}>Limpiar</Button>
         </form>
-        {error && <p style={{ color:'red' }}>{error}</p>}
+        {error && <p style={{ color:'red', textAlign:'center' }}>{error}</p>}
       </header>
       <div>
-        {loading ? <h3>Cargando...</h3> : <Drugs drugs={drugs}></Drugs>}
+        {loading 
+        ? <h3 style={{textAlign: 'center', fontWeight: 'bold'}}>Cargando...</h3> 
+        : <Drugs drugs={drugs}></Drugs>}
       </div>
     </section>
   )

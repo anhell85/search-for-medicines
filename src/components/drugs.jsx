@@ -1,17 +1,25 @@
 /* eslint-disable react/prop-types */
-import { List, ListItemButton, ListItemText } from '@mui/material';
+import { List, ListItemButton, ListItemText, ListSubheader } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useDetails } from '../hooks/useDetails'
-
+import { useState, useEffect } from 'react'
 
 export function Drugs({ drugs }) {
-  const selectedIndex = 0
 
+  const { getDetails } = useDetails()
+  const selectedIndex = 0
   const Item = styled('div')(() => ({
     marginTop: '10px',
   }));
-  const { getDetails } = useDetails()
   
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  useEffect(()=> {
+      if (typeof drugs === 'undefined') {
+        setIsEmpty(true)
+      }
+  },[drugs])
+
 
   const ListOfdrugs = ({ listDrugs }) => {
     return (
@@ -20,8 +28,14 @@ export function Drugs({ drugs }) {
         maxHeight: 600,
         overflow: 'auto',
       }}>
-        { 
-          listDrugs.map(drug => (
+        {
+          listDrugs && listDrugs.length > 20 &&
+          <ListSubheader component="div" id="nested-list-subheader">
+            Existen mas de 20 resultados
+          </ListSubheader>
+        }
+        {
+          listDrugs?.map(drug => (
             <Item key={drug.product_id}>
               <ListItemButton
                 className="drug"
@@ -37,20 +51,19 @@ export function Drugs({ drugs }) {
       </List>
     )
   }
+  const NoDrugsResult = () => {
+    return (
+      <p style={{textAlign: 'center', fontWeight: 'bold'}}>No se encontraron resultados </p>
+    )
+  }
   
   const handleListItemClick = (event, information) => {
     getDetails(information)
   }
- 
-  // const NoDrugsResult = () => {
-  //   return (
-  //     <p>No se encontraron resultados pollo</p>
-  //   )
-  // }
-  const hasDrugs = drugs && drugs.length>0
+
   return (
-    hasDrugs 
+    !isEmpty 
     ? <ListOfdrugs  listDrugs={drugs}/>
-    : <empty/>
+    : <NoDrugsResult/>
   )
 }
