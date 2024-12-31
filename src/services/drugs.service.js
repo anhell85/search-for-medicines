@@ -2,14 +2,16 @@ export const searchDrugs = async ({search}) => {
   if(search==='') return
   try {
     const response = await fetch(`https://api.fda.gov/drug/ndc.json?search=generic_name:"${search}"&limit=100`)
-    // const response = await fetch(`https://api.fda.gov/label.json?search=openfda.brand_name:"${search}"&limit=1000`)
     const json = await response.json()
     
-    return json.results?.map(drug => ({
-      id: drug.product_id,
-      name: drug.generic_name,
-      label: drug.labeler_name
-    }))
+    //TODO seria necesario mapear la informacion por si cambia la API solamente cambiarlo en este archivo.
+    // return json.results?.map(drug => ({
+    //   id: drug.product_id,
+    //   name: drug.generic_name,
+    //   label: drug.labeler_name
+    // })) 
+    return json.results
+   
   } 
   // eslint-disable-next-line no-unused-vars
   catch (e) {
@@ -22,10 +24,13 @@ export const searchDrugsById = async ({ id }) => {
     const response = await fetch(`https://api.fda.gov/drug/ndc.json?search=product_id:"${id}"`)
     const json = await response.json()
 
-    return json.results?.[0].map(drug => ({
+    const allInformation = json.results
+    const results = json.results?.[0].map(drug => ({
       name: drug.generic_name,
       labelerName: drug.labeler_name
     }))
+
+    return {allInformation, results}
   } 
   // eslint-disable-next-line no-unused-vars
   catch (e) {
