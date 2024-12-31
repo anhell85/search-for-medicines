@@ -34,7 +34,7 @@ function ListOfdrugs({ listDrugs }) {
 }
 function NoDrugsResult() {
   return (
-    <p>No se encontraron resultados</p>
+    <p>No se encontraron resultados pollo</p>
   )
 }
 export function Drugs({ drugs }) {
@@ -42,6 +42,6 @@ export function Drugs({ drugs }) {
   return (
     hasDrugs 
     ? <ListOfdrugs  listDrugs={drugs}/>
-    : <NoDrugsResult/>
+    : <empty/>
   )
 }

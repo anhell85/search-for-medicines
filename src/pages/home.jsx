@@ -25,7 +25,7 @@ export function Home() {
   }  
    
   return (
-    <section className='App'>
+    <section>
       <header>
         <h1>Buscador de medicamentos</h1>
         <form className='form' onSubmit={handleSubmit}>
@@ -43,9 +43,9 @@ export function Home() {
         </form>
         {error && <p style={{ color:'red' }}>{error}</p>}
       </header>
-      <main>
+      <div>
         {loading ? <h3>Cargando...</h3> : <Drugs drugs={drugs}></Drugs>}
-      </main>
+      </div>
     </section>
   )
 }

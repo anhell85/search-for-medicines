@@ -1,6 +1,8 @@
 import { useRoutes } from 'react-router-dom'
 import { Navigate } from "react-router-dom";
 import { Home } from "./pages/home.jsx"
+import { Details } from "./pages/details.jsx"
+import { NotFound } from "./pages/notFound.jsx"
 
 const routes = [
   { 
@@ -12,22 +14,20 @@ const routes = [
     element:  <Home/> 
   },
   { 
-    path: '/search',
-    element: <h1> search</h1>
+    path: 'drugs/details',
+    element: <Details/>
   },
   { 
     path: '*',
-    element: <h1> 404 page not found</h1>
+    element: <NotFound/>
   },
 ]
 
 export default function App () {
   const elemento = useRoutes(routes)
-  console.log(elemento);
   
   return (
-    <main>
-      <h1> el elemento es </h1>
+    <main className='page'>
       { elemento }
     </main>
   )
