@@ -1,12 +1,11 @@
 import {useState, useRef} from 'react'
 // import withResult from '../mocks/listDrugs.json'
 // import withoutResult from '../mocks/noResult.json'
-import { searchDrugs } from '../services/petitionDrugs'
+import { searchDrugs } from '../services/drugs.service'
 
-export function UseDrugs({search}) {
+export function useDrugs({search}) {
   const [drugs, setDrugs] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const previusSearch = useRef(search)
 
 
@@ -14,12 +13,11 @@ export function UseDrugs({search}) {
     if(search ===previusSearch.current) return
     try {
       setLoading(true)
-      setError(null)
       previusSearch.current = search
-      const newDrugs =await searchDrugs({search})
+      const newDrugs = await searchDrugs({search})
       setDrugs(newDrugs)
     } catch (error) {
-      setError(error.message)
+      throw new Error(error)
     } finally {
       setLoading(false)
     }

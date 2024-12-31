@@ -1,22 +1,19 @@
 import {Button, TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
 import './App.scss'
 
 import { Drugs } from './components/drugs';
-import { UseDrugs } from './hooks/useDrugs.js';
-import { UseSearch } from './hooks/useSearch.js'
-// import { UseSearch } from './hooks/useSearch';
-// console.log(UseSearch)
+import { useDrugs } from './hooks/useDrugs.js';
+import { useSearch } from './hooks/useSearch.js'
 
 function App() {
-  const { search, updateSearch, error } = UseSearch()
-  const { drugs, loading, getDrugs } = UseDrugs({search});
+  const { search, updateSearch, error } = useSearch()
+  const { drugs, loading, getDrugs } = useDrugs({search});
   
   const handleChange = (event) => {
     const newSearch = event.target.value
     if(newSearch.startsWith(' ')) return
     updateSearch(newSearch)
-
   }
 
   const handleSubmit = (event) => {
@@ -32,29 +29,22 @@ function App() {
       <header>
         <h1>Buscador de medicamentos</h1>
         <form className='form' onSubmit={handleSubmit}>
-        <TextField
-          onChange={handleChange}
-          value={search}
-          id="outlined-basic"
-          name="search"
-          type="search" 
-          placeholder='introduce el nombre del medicamento'
-          required
-          size="small"
-        />
-          {/* <input 
+          <TextField
             onChange={handleChange}
             value={search}
+            id="outlined-basic"
             name="search"
-            type="text" 
-            placeholder='introduce el nombre del medicamento' /> */}
+            type="search" 
+            placeholder='introduce el nombre del medicamento'
+            required
+            size="small"
+          />
           <Button variant="contained" type="submit">Buscar</Button>
         </form>
-        {error && <p style={{color:'red'}} >{error}</p>}
+        {error && <p style={{ color:'red' }}>{error}</p>}
       </header>
       <main>
-        {loading ? <h3>Cargando...</h3> : <Drugs responseDrugs={drugs}></Drugs>}
-        
+        {loading ? <h3>Cargando...</h3> : <Drugs drugs={drugs}></Drugs>}
       </main>
     </section>
   )

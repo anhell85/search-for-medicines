@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 
-export function UseSearch () {
+export function useSearch () {
   const [search, updateSearch] = useState('')
   const [error, setError] = useState(null)
   const isFirstInput = useRef(true)
