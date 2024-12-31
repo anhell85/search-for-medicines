@@ -13,7 +13,7 @@ export function Drugs({ drugs }) {
   const { getDetails } = useDetails()
   
 
-  const ListOfdrugs = ({ listDrugs }) => {    
+  const ListOfdrugs = ({ listDrugs }) => {
     return (
       <List component="nav" aria-label="main mailbox folders"
       sx={{
