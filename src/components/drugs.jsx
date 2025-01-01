@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 export function Drugs({ drugs }) {
 
-  const { getDetails } = useDetails()
+  const { goToDetails } = useDetails()
   const selectedIndex = 0
   const Item = styled('div')(() => ({
     marginTop: '10px',
@@ -58,7 +58,7 @@ export function Drugs({ drugs }) {
   }
   
   const handleListItemClick = (event, information) => {
-    getDetails(information)
+    goToDetails(information)
   }
 
   return (

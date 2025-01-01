@@ -23,14 +23,7 @@ export const searchDrugsById = async ({ id }) => {
   try {
     const response = await fetch(`https://api.fda.gov/drug/ndc.json?search=product_id:"${id}"`)
     const json = await response.json()
-
-    const allInformation = json.results
-    const results = json.results?.[0].map(drug => ({
-      name: drug.generic_name,
-      labelerName: drug.labeler_name
-    }))
-
-    return {allInformation, results}
+    return json.results
   } 
   // eslint-disable-next-line no-unused-vars
   catch (e) {
